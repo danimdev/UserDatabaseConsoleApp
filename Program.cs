@@ -11,7 +11,8 @@ static void MainOutput()
         Console.WriteLine("1. Show Database Table");
         Console.WriteLine("2. Add User to Database Table");
         Console.WriteLine("3. Change Data From ID");
-        Console.WriteLine("4. Exit Program");
+        Console.WriteLine("4. Delete Entry With ID");
+        Console.WriteLine("5. Exit Program");
         int num = Convert.ToInt32(Console.ReadLine());
 
         switch (num)
@@ -26,12 +27,42 @@ static void MainOutput()
                 ChangeDataFromID();
                 break;
             case 4:
+                DeleteEntryWithID();
+                break;
+            case 5:
                 return;
             default:
                 Console.WriteLine("Non Avaible Option...");
                 break;
         }
     }
+}
+
+static void DeleteEntryWithID()
+{
+    Console.Write("ID: ");
+
+    string id = Console.ReadLine();
+
+    int numericValue;
+    bool isNumber = int.TryParse(id, out numericValue);
+
+    if (isNumber)
+    {
+        using (var context = new UserDB())
+        {
+            var user = context.Users.Find(numericValue);
+
+            if(user != null)
+            {
+                context.Users.Remove(user);
+            }
+
+            context.SaveChanges();
+        }
+    }
+
+    Console.WriteLine("User Account with id: " + id + " was deleted.");
 }
 
 static void ChangeDataFromID()
