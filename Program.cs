@@ -57,6 +57,11 @@ static void DeleteEntryWithID()
             {
                 context.Users.Remove(user);
             }
+            else
+            {
+                Console.WriteLine("User Does Not Exist in the Database...");
+                return;
+            }
 
             context.SaveChanges();
         }
