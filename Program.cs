@@ -12,7 +12,8 @@ static void MainOutput()
         Console.WriteLine("2. Add User to Database Table");
         Console.WriteLine("3. Change Data From ID");
         Console.WriteLine("4. Delete Entry With ID");
-        Console.WriteLine("5. Exit Program");
+        Console.WriteLine("5. Filter Data in Database");
+        Console.WriteLine("6. Exit Program");
         int num = Convert.ToInt32(Console.ReadLine());
 
         switch (num)
@@ -30,6 +31,9 @@ static void MainOutput()
                 DeleteEntryWithID();
                 break;
             case 5:
+                GiveListInAnorderedOutput();
+                break;
+            case 6:
                 return;
             default:
                 Console.WriteLine("Non Avaible Option...");
@@ -70,11 +74,16 @@ static void DeleteEntryWithID()
     Console.WriteLine("User Account with id: " + id + " was deleted.");
 }
 
-void GiveListInAnorderedOutput()
+static void GiveListInAnorderedOutput()
 {
     using(var context = new UserDB())
     {
         var result = from user in context.Users where user.ID > 0 && user.ID < 3 select user;
+
+        foreach (var item in result)
+        {
+            Console.WriteLine("ID: " + item.ID + " Username: " + item.Username + " Password: " + item.Password);
+        }
     }
 }
 
