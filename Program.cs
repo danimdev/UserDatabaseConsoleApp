@@ -103,7 +103,7 @@ static void ChangeDataFromID()
         Console.Write("Password: ");
         string newPassword = Console.ReadLine();
 
-        if(string.IsNullOrEmpty(newUsername) && string.IsNullOrEmpty(newPassword))
+        if(string.IsNullOrEmpty(newUsername) || string.IsNullOrEmpty(newPassword))
         {
             return;
         }
