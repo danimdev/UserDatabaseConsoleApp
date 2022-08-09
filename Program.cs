@@ -70,6 +70,14 @@ static void DeleteEntryWithID()
     Console.WriteLine("User Account with id: " + id + " was deleted.");
 }
 
+void GiveListInAnorderedOutput()
+{
+    using(var context = new UserDB())
+    {
+        var result = from user in context.Users where user.ID > 0 && user.ID < 3 select user;
+    }
+}
+
 static void ChangeDataFromID()
 {
     Console.Write("ID: ");
